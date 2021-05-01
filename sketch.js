@@ -1,9 +1,9 @@
 var userPaddle, computerPaddle, computerScore, playerScore, gameState, ball,scoreSound, wall_hitSound, hitSound;
 
 function preload(){
-  // scoreSound = loadSound('score.mp3');
-  // wall_hitSound = loadSound('wall_hit.mp3');
-  // hitSound = loadSound('hit.mp3');
+   scoreSound = loadSound('score.mp3');
+   wall_hitSound = loadSound('wall_hit.mp3');
+   hitSound = loadSound('hit.mp3');
 }
 
 function setup() {
@@ -12,13 +12,13 @@ createCanvas(400,400);
 
 //create a user paddle sprite
 userPaddle = createSprite(390,200,10,70);
-
+userPaddle.shapeColor="Blue";
 //create a computer paddle sprite
 computerPaddle = createSprite(10,200,10,70);
-
+computerPaddle.shapeColor="Blue";
 //create the pong ball
 ball = createSprite(200,200,12,12);
-
+ball.shapeColor="Red";
 computerScore = 0;
 playerScore = 0;
 gameState = "serve";
@@ -26,7 +26,7 @@ gameState = "serve";
 
 function draw() {  
   //fill the computer screen with white color
-  background("white");
+  background("Yellow");
   edges = createEdgeSprites();
   //display Scores
   text(computerScore,170,20);
@@ -68,21 +68,21 @@ function draw() {
 
   //make the ball bounce off the user paddle
   if(ball.isTouching(userPaddle)){
-    //hitSound.play();
+    hitSound.play();
     ball.x = ball.x - 5;
     ball.velocityX = -ball.velocityX;
   }
 
   //make the ball bounce off the computer paddle
   if(ball.isTouching(computerPaddle)){
-    //hitSound.play();
+    hitSound.play();
     ball.x = ball.x + 5;
     ball.velocityX = -ball.velocityX;
   }
 
   //place the ball back in the centre if it crosses the screen
   if(ball.x > 400 || ball.x < 0){
-    //scoreSound.play();
+    scoreSound.play();
 
   if (ball.x < 0) {
       playerScore++;
@@ -106,7 +106,7 @@ function draw() {
   if (ball.isTouching(edges[2]) || ball.isTouching(edges[3])) {
     ball.bounceOff(edges[2]);
     ball.bounceOff(edges[3]);
-   // wall_hitSound.play();
+    wall_hitSound.play();
   }
 
   //add AI to the computer paddle so that it always hits the ball
